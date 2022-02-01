@@ -1,0 +1,80 @@
+@import '../../utils/variables.scss';
+
+@mixin mobile {
+    @media (max-width: 600px){
+        @content;
+    }
+}
+
+.wrapp-search{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    .container-responsive-search{
+        display: flex;
+        flex-direction: column;
+        width: $desktop;
+        padding: 80px 3%;
+
+        .container-input-search{
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 40px;
+            border: 1px solid #bbb;
+
+            .circle-loading{
+                height: 20px;
+                width: 20px;
+                border-radius: 500px;
+                border: 2.5px solid #eee;
+                border-top-color: #666;
+                animation: spin 0.5s ease infinite;
+            }
+
+            i{
+                display: flex;
+                font-size: 20px;
+                color: #666;
+                padding: 1px;
+            }
+
+            .input-page-search{
+                font-size: 20px;
+                width: 100%;
+                outline: none;
+                border: none;
+                margin-left: 15px;
+                font-family: $txtKonten;
+
+                @include mobile(){
+                    width: 90%;
+                }
+            }
+            .input-page-search::placeholder{
+                font-family: $txtKonten;
+                color: $color3;
+            }
+        }
+
+        .container-results-search{
+            display: flex;
+            flex-direction: column;
+            border-top: 1.5px solid #eee;
+
+            .no-results{
+                display: flex;
+                margin-top: 10px;
+                font-size: 13px;
+                font-family: $dateLight;
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    to{
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,14 @@
+@import '../../utils/variables.scss';
+
+.wrapp-category{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .container-category{
+        display: flex;
+        flex-direction: column;
+        width: $desktop;
+        padding: 80px 3%;
+    }
+}

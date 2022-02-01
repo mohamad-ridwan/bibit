@@ -1,0 +1,86 @@
+@import '../../utils/variables.scss';
+
+@mixin mobile {
+    @media (max-width: 340px){
+        @content;
+    }
+}
+
+@mixin mobileDropdown {
+    @media (max-width: 600px){
+        @content;
+    }
+}
+
+.wrapp-navbar{
+    display: flex;
+    height: auto;
+    width: 100%;
+    justify-content: center;
+
+    .container-nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: $desktop;
+        padding: 30px 3%;
+
+        .logo-web{
+            height: auto;
+            width: 160px;
+            object-fit: cover;
+            object-position: center;
+            cursor: pointer;
+
+            @include mobile(){
+                width: 100px;
+            }
+        }
+    
+        .list-menu-nav{
+            display: flex;
+            align-items: center;
+    
+            .menu-nav{
+                font-size: 16px;
+                color: $color2;
+                cursor: pointer;
+                margin-left: 20px;
+                font-family: $txtKonten;
+                overflow: hidden;
+                transition: 0.2s ease-in-out;
+
+                .list-menu-collapse{
+                    flex-direction: column;
+                    position: absolute;
+                    margin-top: 0px;
+                    margin-left: -12px;
+                    z-index: 11;
+                    background-color: #fff;
+                    padding-top: 5px;
+
+                    @include mobileDropdown(){
+                        margin-left: -25px;
+                    }
+
+                    .container-menu-collapse{
+                        display: flex;
+                        flex-direction: column;
+                        border: 1px solid #bbb;
+                        padding: 8px 12px 0 12px;
+
+                        .menu-collapse{
+                            padding-bottom: 5px;
+                            list-style: none;
+                            cursor: pointer;
+                            text-align: start;
+                            color: #000;
+                            transition: 0.2s ease-in-out;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

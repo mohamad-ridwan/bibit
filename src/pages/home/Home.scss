@@ -1,0 +1,32 @@
+@import '../../utils/variables.scss';
+
+@mixin mobile {
+    @media (max-width: 800px){
+        @content;
+    }
+}
+
+.wrapp-home{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    .container-home{
+        display: flex;
+        width: $desktop;
+        padding: 80px 3% 120px 3%;
+        justify-content: space-between;
+
+        .konten-blog{
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            margin-right: 30px;
+
+            @include mobile(){
+                width: auto;
+                margin-right: 0;
+            }
+        }
+    }
+}

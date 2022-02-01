@@ -1,0 +1,31 @@
+$color1: #00ab6b;
+$color2: #000;
+$color3: #999;
+$color4: #058d5b;
+
+$desktop: 1100px;
+
+@font-face {
+    font-family: title;
+    src: url('../utils/futura/FuturaPTDemi.otf');
+}
+
+@font-face {
+    font-family: date;
+    src: url('../utils/futura/FuturaPTBook.otf');
+}
+
+@font-face {
+    font-family: dateLight;
+    src: url('../utils/futura/FuturaPTLight.otf');
+}
+
+@font-face {
+    font-family: txtKonten;
+    src: url('../utils/futura/FuturaPTBook.otf');
+}
+
+$title: title;
+$date: date;
+$txtKonten: txtKonten;
+$dateLight: dateLight;

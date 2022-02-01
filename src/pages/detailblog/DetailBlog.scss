@@ -1,0 +1,78 @@
+@import '../../utils/variables.scss';
+
+@mixin mobile {
+    @media (max-width: 800px){
+        @content;
+    }
+}
+
+@mixin mobilePaginate {
+    @media (max-width: 600px){
+        @content;
+    }
+}
+
+.wrapp-detail-blog{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    .container-detail-blog{
+        display: flex;
+        width: $desktop;
+        padding: 80px 3% 200px 3%;
+        justify-content: space-between;
+
+        .konten-detail-blog{
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            margin-right: 30px;
+
+            @include mobile(){
+                width: auto;
+                margin-right: 0;
+            }
+
+            .column-bawah-blog{
+                display: flex;
+                justify-content: space-between;
+                margin-top: 50px;
+
+                @include mobilePaginate(){
+                    flex-direction: column;
+                }
+
+                .btn-paginate{
+                    display: flex;  
+                    cursor: pointer;
+                    background-color: transparent;
+                    border: none;
+                    font-size: 16px;
+                    font-family: $txtKonten;
+                    color: $color1;
+                    transition: 0.2s ease-in-out;
+                    &:hover{
+                        color: $color4;
+                    }
+                }
+
+                .btn-left-paginate{
+                    display: flex;
+                    text-align: start;
+                    margin-top: 10px;
+                    margin-right: 5px;
+                }
+                .btn-right-paginate{
+                    display: flex;
+                    text-align: end;
+                    margin-top: 10px;
+
+                    @include mobilePaginate(){
+                        flex-direction: row-reverse;
+                    }
+                }
+            }
+        }
+    }
+}

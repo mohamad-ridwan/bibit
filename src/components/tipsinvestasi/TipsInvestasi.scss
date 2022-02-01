@@ -1,0 +1,112 @@
+@import '../../utils/variables.scss';
+
+@mixin mobile {
+    @media (max-width: 800px){
+        @content;
+    }
+}
+
+.wrapp-tips-investasi{
+    display: flex;
+    width: 270px;
+
+    @include mobile(){
+        display: none;
+    }
+
+    .container-tips-investasi{
+        flex-direction: column;
+        position: relative;
+        height: max-content;
+        overflow: hidden;
+
+        .input-search{
+            display: flex;
+            position: relative;
+            width: auto;
+            align-items: center;
+            padding: 10px 12px;
+            border: 1px solid #bbb;
+            &:hover{
+                cursor: text;
+            }
+
+            .circle-loading{
+                height: 15px;
+                width: 15px;
+                border-radius: 500px;
+                border: 2.5px solid #eee;
+                border-top-color: #666;
+                animation: spin 0.5s ease infinite;
+            }
+    
+            i{
+                font-size: 15px;
+                color: #666;
+                padding: 2px;
+            }
+    
+            .close{
+                cursor: pointer;
+                color: $color1;
+            }
+    
+            .input{
+                width: 80%;
+                outline: none;
+                border: none;
+                margin-left: 10px;
+                margin-bottom: 1px;
+                font-family: $txtKonten;
+                font-size: 16px;
+            }
+            .input::placeholder{
+                font-size: 16px;
+                font-family: $txtKonten;
+                color: $color3;
+            }
+        }
+    
+        .title-tips-investasi{
+            font-size: 26px;
+            font-family: $title;
+            color: $color1;
+            margin: 30px 0;
+            text-align: start;
+        }
+
+        .dropdown-blog-search{
+            display: flex;
+            position: absolute;
+            width: 100%;
+            top: 43px;
+            bottom: 0;
+            z-index: 1;
+            background-color: #fff;
+
+            .container-blog-search{
+                overflow-y: scroll;
+                width: 100%;
+                border: 1px solid #bbb;
+
+                .content-blog-search{
+                    flex-direction: column;
+                    overflow: hidden;
+                }
+            }
+
+            .no-results{
+                font-size: 12px;
+                font-family: $dateLight;
+                text-align: start;
+                padding: 15px;
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    to{
+        transform: rotate(360deg);
+    }
+}

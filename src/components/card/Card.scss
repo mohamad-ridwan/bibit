@@ -1,0 +1,360 @@
+@import '../../utils/variables.scss';
+
+@mixin mobile {
+    @media (max-width: 470px){
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: 471px) and (max-width: 900px){
+        @content;
+    }
+}
+
+@mixin mobileVideo {
+    @media (max-width: 400px){
+        @content;
+    }
+}
+
+@mixin semiMobileVideo {
+    @media (min-width: 401px) and (max-width: 700px){
+        @content;
+    }
+}
+
+@mixin tabletVideo {
+    @media (min-width: 701px) and (max-width: 1100px){
+        @content;
+    }
+}
+
+.wrapp-card{
+    display: flex;
+    flex-direction: row;
+    transition: 0.2s ease-in-out;
+    &:hover{
+        background-color: #f1f1f1;
+    }
+
+    @include mobile(){
+        flex-direction: column;
+    }
+
+    .img-left-card{
+        display: none;
+        object-fit: cover;
+        object-position: center;
+        margin-right: 20px;
+        cursor: pointer;
+
+        @include mobile(){
+            height: auto;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        @include tablet(){
+            height: 130px;
+            width: 300px;
+        }
+    }
+
+    .column-right-konten{
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+
+        @include mobile(){
+            width: auto;
+        }
+
+        .img-blog-search{
+            display: none;
+            float: right;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            object-position: center;
+            margin-top: 15px;
+            margin-left: 5px;
+        }
+        
+        .title-card{
+            text-align: start;
+            font-size: 26px;
+            color: $color1;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-family: $title;
+            transition: 0.2s ease-in-out;
+            &:hover{
+                color: $color4;
+            }
+        }
+
+        .title-card-light{
+            display: none;
+            text-align: start;
+            font-size: 20px;
+            color: $color1;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-family: $txtKonten;
+            transition: 0.2s ease-in-out;
+            &:hover{
+                color: $color4;
+            }
+        }
+    
+        .date-card{
+            font-size: 14px;
+            color: $color3;
+            margin-bottom: 20px;
+            text-align: start;
+            font-family: $date;
+        }
+    
+        .date-card-light{
+            display: none;
+            text-align: start;
+            font-size: 12.5px;
+            font-family: $dateLight;
+            color: $color3;
+            margin-top: 3px;
+        }
+    
+        .img-card{
+            height: auto;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    
+        .konten-utama{
+            display: flex;
+            font-size: 16px;
+            color: $color1;
+            font-family: $txtKonten;
+            text-align: start;
+            line-height: 1.9;
+            transition: 0.2s ease-in-out;
+            &:hover{
+                color: $color4;
+            }
+
+            a{
+                color: $color1;
+                transition: 0.2s ease-in-out;
+                &:hover{
+                    color: $color4;
+                }
+            }
+
+            .title-detail-konten{
+                color: $color1;
+                font-family: $title;
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
+    
+            .title-detail-konten-black{
+                color: $color2;
+                font-family: $title;
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
+        }
+    
+        .konten-detail{
+            display: none;
+            flex-direction: column;
+            font-size: 16px;
+            color: $color2;
+            font-family: $txtKonten;
+            text-align: start;
+            line-height: 1.9;
+            margin-top: 20px;
+    
+            img{
+                display: flex;
+                width: 100%;
+                object-fit: cover;
+                object-position: center;
+                margin: 20px 0;
+            }
+
+            iframe{
+                height: 400px;
+                width: 100%;
+                margin: 20px 0;
+
+                @include mobileVideo(){
+                    height: 200px;
+                }
+
+                @include semiMobileVideo(){
+                    height: 250px;
+                }
+
+                @include tabletVideo(){
+                    height: 350px;
+                }
+            }
+            
+            a{
+                color: $color1;
+                transition: 0.2s ease-in-out;
+                &:hover{
+                    color: $color4;
+                }
+            }
+    
+            .title-detail-konten{
+                color: $color1;
+                font-family: $title;
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
+    
+            .title-detail-konten-black{
+                color: $color2;
+                font-family: $title;
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
+    
+            .list-detail-konten{
+                align-items: center;
+                margin: 10px 0;
+    
+                li{
+                    text-align: start;
+                    margin-left: 15px;
+                    margin-bottom: 10px;
+                    
+                    p{
+                        text-align: start;
+                        margin-top: -30px;
+                        margin-left: 20px;
+                    }
+                }
+
+                .child-list-detail-konten{
+                    align-items: center;
+                    margin: 10px 0;
+
+                    li{
+                        text-align: start;
+                        margin-left: 50px;
+                        list-style-type: circle;
+                        padding: 1px;
+                    }
+                }
+            }
+    
+            .line-highlight{
+                height: 0.5px;
+                width: 100%;
+                background-color: #bbb;
+                margin: 40px 0;
+            }
+
+            .txt-highlight{
+                padding-left: 15px;
+                border-left: 2px solid #999;
+            }
+        }
+    
+        .read-more{
+            display: flex;
+            font-size: 16px;
+            color: $color1;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            margin-top: 20px;
+            font-family: $txtKonten;
+            transition: 0.2s ease-in-out;
+            &:hover{
+                color: $color4;
+            }
+        }
+
+        .container-shared{
+            display: none;
+            overflow: hidden;
+            width: 48px;
+            margin-top: 20px;
+
+            .btn-share{
+                display: flex;
+                align-items: center;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                color: #bbb;
+
+                i{
+                    display: flex;
+                    font-size: 12px;
+                    padding: 2px 5px 2px 1px;
+                }
+    
+                .share{
+                    display: flex;
+                    font-size: 14px;
+                    font-family: $txtKonten;
+                }
+            }
+
+            .dropdown-shared{
+                display: none;
+                position: absolute;
+                z-index: 1;
+                background-color: #fff;
+                margin-top: 15px;
+
+                .list-dropdown-shared{
+                    display: flex;
+                    flex-direction: column;
+                    border: 1px solid #bbb;
+                    padding: 15px;
+                    margin-top: 15px;
+
+                    .list-link{
+                        display: flex;
+                        list-style: none;
+                        align-items: center;
+                        justify-content: flex-start;
+                        font-size: 14px;
+                        font-family: $txtKonten;
+                        cursor: pointer;
+                        margin: 5px 0;
+                        padding: 5px 8px;
+                        border-radius: 3px;
+                        color: #fff;
+    
+                        i{
+                            display: flex;
+                            overflow: hidden;
+                            font-size: 14px;
+                            padding: 1px;
+                            width: 20px;
+                        }
+    
+                        .name-medsos{
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
