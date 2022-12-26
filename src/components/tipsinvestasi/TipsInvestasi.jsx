@@ -13,7 +13,9 @@ function TipsInvestasi() {
     const [blogEducation, setBlogEducation] = useState([])
     const [inputValue, setInputValue] = useState('')
     const [blogSearch, setBlogSearch] = useState([])
+    const [searchMessage, setSearchMessage] = useState('')
     const [loadSearch, setLoadSearch] = useState(false)
+    const [dataSementara, setDataSementara] = useState([])
 
     const history = useHistory()
     const getPath = window.location.pathname
@@ -47,48 +49,80 @@ function TipsInvestasi() {
             const dropDown = document.getElementsByClassName('dropdown-blog-search')
 
             dropDown[0].style.bottom = '0'
-        }else if(e.length <= 2){
+        } else if (e.length <= 2) {
             const dropDown = document.getElementsByClassName('dropdown-blog-search')
 
             dropDown[0].style.bottom = 'inherit'
         }
     }
 
-    function changeInput(e) {
-        const value = e.target.value
-        setInputValue(value)
-        setLoadSearch(true)
+    async function getDataSearch(value) {
+        return await new Promise((resolve, reject) => {
+            if (dataSementara.length === 0 && value.length > 0 && value.length <= 1) {
+                setLoadSearch(true)
 
-        API.APIGetCategory()
+                API.APIGetCategory()
+                    .then(res => {
+                        const respons = res.data[0].data
+
+                        setDataSementara(respons)
+                        resolve(respons)
+
+                        setTimeout(() => {
+                            setLoadSearch(false)
+                        }, 10)
+                    })
+                    .catch(err => reject({ message: 'error search', serverMessage: err }))
+            } else if(dataSementara.length > 0){
+                resolve(dataSementara)
+            }
+        })
+    }
+
+    function changeInput(v) {
+        setInputValue(v.target.value)
+        const regexSpecialCharacters = /[^a-zA-Z0-9 ]/g
+
+        if (dataSementara.length === 0) {
+            setSearchMessage('Looking for...')
+        }
+
+        getDataSearch(v.target.value)
             .then(res => {
-                const respons = res.data[0].data
-
-                const getItems = respons.filter(e =>
-                    e.title.toLowerCase().includes(value.toLowerCase()) ||
-                    e.kontenUtama.toLowerCase().includes(value.toLowerCase())
+                const getItems = res.filter(e =>
+                    e.title.replace(regexSpecialCharacters, '').toLowerCase().includes(v.target.value.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase()) ||
+                    e.kontenUtama.replace(regexSpecialCharacters, '').toLowerCase().includes(v.target.value.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase())
                 )
                 setBlogSearch(getItems)
                 changeBottomDropdown(getItems)
 
-                setTimeout(() => {
-                    setLoadSearch(false)
-                }, 10);
+                if (getItems.length === 0 && res.length > 0) {
+                    setSearchMessage('No results found.')
+                }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+                setLoadSearch(false)
+                alert('Oops!, telah terjadi kesalahan server')
+                window.location.reload()
+            })
     }
 
-    function submit(e){
+    function submit(e) {
         e.preventDefault()
-        history.push('/search')
-        setIdxActive(null)
-        setSearchGlobal(inputValue)
+        if (inputValue.trim()) {
+            history.push('/search')
+            setIdxActive(null)
 
-        document.getElementsByClassName('menu-nav')[0].style.color = '#000'
+            setSearchGlobal(inputValue.replace(/ /g, '+').split('+').filter(e => e !== '').join(' '))
+
+            document.getElementsByClassName('menu-nav')[0].style.color = '#000'
+        }
     }
 
-    function toBlog(path){
+    function toBlog(path) {
         history.push(`/blog/${path}`)
-        if(getPath.includes('/blog')){
+        if (getPath.includes('/blog')) {
             setDataBlog({})
             setOnLoadingGlobal(true)
             blogDetailGlobal(path, '')
@@ -100,7 +134,7 @@ function TipsInvestasi() {
         <>
             <div className="wrapp-tips-investasi">
                 <div className="container-tips-investasi">
-                    <form onSubmit={(e)=>submit(e)} className="input-search">
+                    <form onSubmit={(e) => submit(e)} className="input-search">
                         <div className="circle-loading" style={{
                             display: loadSearch ? 'flex' : 'none'
                         }}>
@@ -117,6 +151,7 @@ function TipsInvestasi() {
                         }} onClick={() => {
                             setInputValue('')
                             setBlogSearch([])
+                            setLoadSearch(false)
                         }}></i>
                     </form>
 
@@ -140,7 +175,7 @@ function TipsInvestasi() {
                                         flexDirectionRightKonten="column-reverse"
                                         cursorKontenUtama="pointer"
                                         bgColorWrapp="#fff"
-                                        clickKontenUtama={()=>toBlog(e.path)}
+                                        clickKontenUtama={() => toBlog(e.path)}
                                     />
                                 </>
                             )
@@ -150,11 +185,11 @@ function TipsInvestasi() {
                     </div>
 
                     <div className="dropdown-blog-search" style={{
-                        display: inputValue.length > 0 ? 'flex' : 'none'
+                        display: inputValue.trim() ? 'flex' : 'none'
                     }}>
                         <div className="container-blog-search">
                             <div className="content-blog-search">
-                                {inputValue.length > 0 && blogSearch.length > 0 ? blogSearch.map((e, i) => {
+                                {inputValue.trim() && blogSearch.length > 0 ? blogSearch.map((e, i) => {
                                     const kontenUtama = e.kontenUtama.length > 200 ? `${e.kontenUtama.substr(0, 200)}...` : e.kontenUtama
 
                                     return (
@@ -177,11 +212,11 @@ function TipsInvestasi() {
                                             colorKontenUtama="#000"
                                             paddingWrapp="5px 15px 15px 15px"
                                             displayRightContent="block"
-                                            clickWrapp={()=>toBlog(e.path)}
+                                            clickWrapp={() => toBlog(e.path)}
                                         />
                                     )
                                 }) : (
-                                    <p className='no-results'>No results found.</p>
+                                    <p className='no-results'>{searchMessage}</p>
                                 )}
                             </div>
                         </div>
